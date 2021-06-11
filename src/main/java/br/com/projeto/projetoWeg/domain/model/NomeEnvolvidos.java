@@ -6,20 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-@Entity
-public class Gerentes {
+public class NomeEnvolvidos {
 
-    @Id
-    private long numero_cracha;
-
-    private long id_depto;
+    private String nome_solicitante;
+    private String nome_responsavel;
+    private String nome_aprovador;
 
 }

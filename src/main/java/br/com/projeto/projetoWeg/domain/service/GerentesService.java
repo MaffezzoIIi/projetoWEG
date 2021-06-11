@@ -21,5 +21,13 @@ public class GerentesService {
         return gerentesRepository.save(gerentes);
     }
 
+    public String loginGerentes(String username, String password){
+//        if (gerentesRepository.findByUsername(username).getUsername() != username &&
+//               gerentesRepository.findByPassword(password).getPassword() != password){
+//            return "Passou";
+//        }
+
+        return  "Falhouw";
+    }
 
 }

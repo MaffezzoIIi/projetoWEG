@@ -25,11 +25,6 @@ public class GerentesController {
 
     @GetMapping("/{username}&{password}")
     public String listarGerentes(@PathVariable String username, @PathVariable String password){
-
-        if (gerentesRepository.findByUsername(username).getUsername() != null && gerentesRepository.findByPassword(password).getPassword() != null){
-            return "Passou";
-        }
-
-        return "Reprovou";
+        return gerentesService.loginGerentes(username, password);
     }
 }

@@ -15,11 +15,15 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @Entity
-public class Gerentes {
+public class Envolvidos {
 
     @Id
-    private long numero_cracha;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    private long id_depto;
+    private long id_responsavel;
 
+    private long id_solicitante;
+
+    private long id_aprovador;
 }
