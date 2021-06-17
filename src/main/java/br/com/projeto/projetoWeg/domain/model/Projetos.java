@@ -31,13 +31,8 @@ public class Projetos {
 
     //Second Step
 
-    private String nome_solicitante;
-    private String nome_responsavel;
-
-    //Third Step
-
-    private CcPagantes ccPagantes;
-    private Despesas despesas;
+    private long solicitante_id;
+    private long responsavel_id;
 
     //Fourth Step
 
@@ -53,12 +48,12 @@ public class Projetos {
     *  */
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Enum<Status> statusProjeto;
+    private Status status;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int horasApontadas;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private LocalDateTime data_Do_cadastro;
+    private LocalDateTime data_do_cadastro;
 
 }

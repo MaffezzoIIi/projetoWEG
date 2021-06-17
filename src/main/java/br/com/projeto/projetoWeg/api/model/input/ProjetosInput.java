@@ -19,9 +19,9 @@ public class ProjetosInput {
     private String nome_solicitante;
     private List<DespesasInput> despesas;
     private List<CcPagantesInput> ccPagantes;
-    private String data_inicio;
-    private String data_termino;
-    private String data_aprovacao;
+    private String data_de_inicio;
+    private String data_de_termino;
+    private String data_de_aprovacao;
 
 
 }

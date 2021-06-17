@@ -13,7 +13,6 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
 public class Consultores {
 
     @Id

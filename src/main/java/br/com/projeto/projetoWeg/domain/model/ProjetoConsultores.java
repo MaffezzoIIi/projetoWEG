@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
 public class ProjetoConsultores {
 
     private long projeto_id;

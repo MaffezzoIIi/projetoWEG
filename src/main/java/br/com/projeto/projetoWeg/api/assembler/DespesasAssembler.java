@@ -31,4 +31,8 @@ public class DespesasAssembler {
         return modelMapper.map(despesasInput, Despesas.class);
     }
 
+    public List<Despesas> toCollectionEntity(List<DespesasInput> despesasInput) {
+        return despesasInput.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+
 }

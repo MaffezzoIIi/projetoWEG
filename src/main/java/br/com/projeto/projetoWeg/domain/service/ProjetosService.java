@@ -1,8 +1,8 @@
 package br.com.projeto.projetoWeg.domain.service;
 
+import br.com.projeto.projetoWeg.api.model.input.ProjetosInput;
 import br.com.projeto.projetoWeg.domain.model.Projetos;
 import br.com.projeto.projetoWeg.domain.model.Status;
-import br.com.projeto.projetoWeg.domain.repository.EnvolvidosRepository;
 import br.com.projeto.projetoWeg.domain.repository.ProjetosRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,17 @@ import java.util.List;
 public class ProjetosService {
 
     private ProjetosRepository projetosRepository;
+    private FuncionariosService funcionariosService;
 
     @Transactional
-    public Projetos cadastrarProjeto(Projetos projetos) {
-        projetos.setData_Do_cadastro(LocalDateTime.now());
-        projetos.setStatusProjeto(Status.NAO_INICIADO);
+    public Projetos cadastrarProjeto(Projetos projetos, String nome_responsavel, String nome_solicitante) {
+        projetos.setData_do_cadastro(LocalDateTime.now());
+        projetos.setStatus(Status.NAO_INICIADO);
         projetos.setHorasApontadas(0);
+
+        projetos.setResponsavel_id(funcionariosService.buscarPorNome(nome_responsavel).getNumero_cracha());
+        projetos.setSolicitante_id(funcionariosService.buscarPorNome(nome_solicitante).getNumero_cracha());
+
         return projetosRepository.save(projetos);
     }
 

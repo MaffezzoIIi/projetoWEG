@@ -5,7 +5,7 @@ CREATE TABLE projetos (
     descricao varchar(500) not null,
     responsavel_id bigint not null,
     solicitante_id bigint not null,
-    status VARCHAR(12),
+    status VARCHAR(20),
     horas_apontadas int,
     data_de_inicio varchar(10) not null,
     data_de_termino varchar(10) not null,

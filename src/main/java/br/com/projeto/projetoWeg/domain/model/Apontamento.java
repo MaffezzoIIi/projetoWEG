@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
 public class Apontamento {
 
     private long id;

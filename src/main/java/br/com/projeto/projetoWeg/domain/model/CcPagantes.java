@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
@@ -16,8 +16,14 @@ import java.math.BigDecimal;
 @Entity
 public class CcPagantes {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cc_id;
+
+    @JoinColumn
     private long projeto_id;
+
+    @JoinColumn
     private long responsavel_id;
     private double percentual;
     private BigDecimal valor;

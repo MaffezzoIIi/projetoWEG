@@ -24,19 +24,8 @@ public class FuncionariosService {
         return funcionariosRepository.findAll();
     }
 
-
-    public Long[] buscarIdPeloNome(NomeEnvolvidos nomeEnvolvidos){
-        Long idEnvolvidos[] = new Long[3];
-
-        //Solicitante
-        idEnvolvidos[0] = funcionariosRepository.findByNome(nomeEnvolvidos.getNome_solicitante()).getNumero_cracha();
-        //Responsavel
-        idEnvolvidos[1] = funcionariosRepository.findByNome(nomeEnvolvidos.getNome_responsavel()).getNumero_cracha();
-        //Aprovador
-        idEnvolvidos[2] = funcionariosRepository.findByNome(nomeEnvolvidos.getNome_aprovador()).getNumero_cracha();
-
-        return idEnvolvidos;
+    public Funcionarios buscarPorNome(String nome) {
+        return funcionariosRepository.findByNome(nome);
     }
-
 
 }
