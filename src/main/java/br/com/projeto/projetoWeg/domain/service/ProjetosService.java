@@ -1,6 +1,7 @@
 package br.com.projeto.projetoWeg.domain.service;
 
 import br.com.projeto.projetoWeg.domain.model.Projetos;
+import br.com.projeto.projetoWeg.domain.model.Status;
 import br.com.projeto.projetoWeg.domain.repository.EnvolvidosRepository;
 import br.com.projeto.projetoWeg.domain.repository.ProjetosRepository;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,10 @@ public class ProjetosService {
     private ProjetosRepository projetosRepository;
 
     @Transactional
-    public Projetos cadastrarProjeto(Projetos projetos, long id) {
+    public Projetos cadastrarProjeto(Projetos projetos) {
         projetos.setData_Do_cadastro(LocalDateTime.now());
-        projetos.setId_envolvidos(id);
+        projetos.setStatusProjeto(Status.NAO_INICIADO);
+        projetos.setHorasApontadas(0);
         return projetosRepository.save(projetos);
     }
 

@@ -1,6 +1,5 @@
 package br.com.projeto.projetoWeg.api.controller;
 
-import br.com.projeto.projetoWeg.domain.model.Envolvidos;
 import br.com.projeto.projetoWeg.domain.service.EnvolvidosService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

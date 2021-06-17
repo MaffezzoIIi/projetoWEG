@@ -1,17 +1,21 @@
 package br.com.projeto.projetoWeg.domain.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class ProjetoEnvolvidos {
+@Entity
+public class ProjetoConsultores {
 
-    private Projetos projetos;
-    private NomeEnvolvidos envolvidos;
+    private long projeto_id;
+    private long consultor_id;
 
 }

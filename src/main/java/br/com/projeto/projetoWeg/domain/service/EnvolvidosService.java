@@ -1,10 +1,7 @@
 package br.com.projeto.projetoWeg.domain.service;
 
-import br.com.projeto.projetoWeg.domain.model.Envolvidos;
-import br.com.projeto.projetoWeg.domain.model.ProjetoEnvolvidos;
 import br.com.projeto.projetoWeg.domain.repository.EnvolvidosRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

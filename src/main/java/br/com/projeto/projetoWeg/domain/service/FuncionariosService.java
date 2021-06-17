@@ -1,16 +1,11 @@
 package br.com.projeto.projetoWeg.domain.service;
 
-import br.com.projeto.projetoWeg.api.controller.FuncionariosController;
-import br.com.projeto.projetoWeg.domain.model.Envolvidos;
 import br.com.projeto.projetoWeg.domain.model.Funcionarios;
-import br.com.projeto.projetoWeg.domain.model.NomeEnvolvidos;
-import br.com.projeto.projetoWeg.domain.model.ProjetoEnvolvidos;
 import br.com.projeto.projetoWeg.domain.repository.FuncionariosRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor

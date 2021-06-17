@@ -6,15 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-public class NomeEnvolvidos {
+@Entity
+public class Consultores {
 
-    private String nome_solicitante;
-    private String nome_responsavel;
-    private String nome_aprovador;
+    @Id
+    private long numero_cracha;
+
+    private String nome;
+
+    private String email;
+
+    private String senha;
 
 }

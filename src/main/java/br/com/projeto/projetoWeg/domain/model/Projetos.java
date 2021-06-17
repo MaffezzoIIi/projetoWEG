@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -30,16 +29,15 @@ public class Projetos {
 
     private String descricao;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private long id_envolvidos;
+    //Second Step
+
+    private String nome_solicitante;
+    private String nome_responsavel;
 
     //Third Step
 
-    private long id_cc;
-
-    private BigDecimal verba_aprovada;
-
-    private int limite_de_horas;
+    private CcPagantes ccPagantes;
+    private Despesas despesas;
 
     //Fourth Step
 
@@ -48,6 +46,17 @@ public class Projetos {
     private String data_de_termino;
 
     private String data_de_aprovacao;
+
+    /* *
+    * Campos que não serão informados na hora do cadastro
+    * e servirão apenas para leitura
+    *  */
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Enum<Status> statusProjeto;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private int horasApontadas;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime data_Do_cadastro;
