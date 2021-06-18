@@ -22,9 +22,24 @@ public class CcPagantesAssembler {
         return modelMapper.map(ccPagantes, CcPagantesModel.class);
     }
 
+
+    public CcPagantesModel toModel(CcPagantesInput ccPagantesInput) {
+        return  modelMapper.map(ccPagantesInput, CcPagantesModel.class);
+    }
+
     public List<CcPagantesModel> toCollectionModel(List<CcPagantes> ccPagantes){
         return ccPagantes.stream().map(this::toModel).collect(Collectors.toList());
     }
+
+
+    public List<CcPagantesModel> toCollectionModelB(List<CcPagantesInput> ccPagantesInputs){
+        return ccPagantesInputs.stream().map(this::toModel).collect(Collectors.toList());
+    }
+
+    public List<CcPagantes> toCollectionEntity(List<CcPagantesInput> ccPagantesInputs){
+        return ccPagantesInputs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+
 
     public CcPagantes toEntity(CcPagantesInput ccPagantesInput){
         return modelMapper.map(ccPagantesInput, CcPagantes.class);

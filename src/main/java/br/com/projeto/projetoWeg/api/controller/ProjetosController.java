@@ -31,9 +31,6 @@ public class ProjetosController {
     private DespesasAssembler despesasAssembler;
     private CcPagantesAssembler ccPagantesAssembler;
 
-    //Repositorys
-
-
     @PostMapping("/cadastrar")
     public @ResponseBody ProjetoModel cadastrarProjeto(@RequestBody ProjetosInput projetosInput) {
         Projetos novoProjeto = projetoAssembler.toEntity(projetosInput);
@@ -51,7 +48,7 @@ public class ProjetosController {
                     projetosInput.getCcPagantes().get(i).getResponsavel_cc());
         }
 
-        return projetoAssembler.toModel(projeto);
+        return projetosService.colocarDadosAdicionais(projetosInput);
     }
 
     @GetMapping("/listar")

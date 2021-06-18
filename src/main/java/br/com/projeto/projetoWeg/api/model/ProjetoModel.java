@@ -19,11 +19,12 @@ public class ProjetoModel {
     private String descricao;
     private String nome_responsavel;
     private String nome_solicitante;
-    private List<Despesas> despesas;
-    private List<CcPagantes> ccPagantes;
+    private List<DespesasModel> despesas;
+    private List<CcPagantesModel> ccPagantes;
     private Status status;
     private String data_de_inicio;
     private String data_de_termino;
     private String data_de_aprovacao;
     private String data_do_cadastro;
+
 }

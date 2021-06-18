@@ -23,13 +23,26 @@ public class DespesasAssembler {
         return modelMapper.map(despesas, DespesasModel.class);
     }
 
+
+    public DespesasModel toModel(DespesasInput despesasInput) {
+        return  modelMapper.map(despesasInput, DespesasModel.class);
+    }
+
+    public Despesas toEntity(DespesasInput despesasInput) {
+        return modelMapper.map(despesasInput, Despesas.class);
+
+    }
+
+
     public List<DespesasModel> toCollectionModel(List<Despesas> despesas){
         return despesas.stream().map(this::toModel).collect(Collectors.toList());
     }
 
-    public Despesas toEntity(DespesasInput despesasInput){
-        return modelMapper.map(despesasInput, Despesas.class);
+
+    public  List<DespesasModel> toCollectionModelB(List<DespesasInput> despesasInputs) {
+        return despesasInputs.stream().map(this::toModel).collect(Collectors.toList());
     }
+
 
     public List<Despesas> toCollectionEntity(List<DespesasInput> despesasInput) {
         return despesasInput.stream().map(this::toEntity).collect(Collectors.toList());
