@@ -1,0 +1,8 @@
+CREATE TABLE despesas(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    esforco INT NOT NULL,
+    valor DOUBLE NOT NULL,
+
+    PRIMARY KEY(id)
+);

@@ -1,10 +1,6 @@
 package br.com.projeto.projetoWeg.api.model;
 
-import br.com.projeto.projetoWeg.api.model.input.CcPagantesInput;
-import br.com.projeto.projetoWeg.api.model.input.DespesasInput;
-import br.com.projeto.projetoWeg.domain.model.CcPagantes;
-import br.com.projeto.projetoWeg.domain.model.Despesas;
-import br.com.projeto.projetoWeg.domain.model.Status;
+import br.com.projeto.projetoWeg.domain.entities.Status;
 import lombok.Getter;
 import lombok.Setter;
 

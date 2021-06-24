@@ -1,4 +1,4 @@
-package br.com.projeto.projetoWeg.domain.model;
+package br.com.projeto.projetoWeg.domain.entities;
 
 public enum Status {
     CONCLUIDO,
