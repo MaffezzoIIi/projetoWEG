@@ -1,25 +1,24 @@
-package br.com.projeto.projetoWeg.api.model.input;
+package br.com.projeto.projetoWeg.api.model;
 
+import br.com.projeto.projetoWeg.domain.entities.Funcionario;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
-
 @Getter
 @Setter
-public class ProjetosInput {
+public class ProjetoDTO {
+
+    private long id;
 
     private long numero_do_projeto;
     private String titulo;
     private String descricao;
-    private String nome_responsavel;
-    private String nome_solicitante;
-    private List<DespesasInput> despesas;
-    private List<CcPagantesInput> ccPagantes;
+
+    private FuncionarioDTO solicitante;
+    private FuncionarioDTO responsavel;
+
     private String data_de_inicio;
     private String data_de_termino;
     private String data_de_aprovacao;
-
 
 }

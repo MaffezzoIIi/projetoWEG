@@ -19,6 +19,6 @@ public class Cargo {
     private Long id;
 
     @NotBlank
-    private String cargo;
+    private String nome;
 
 }

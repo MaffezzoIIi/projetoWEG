@@ -15,8 +15,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-public class Despesas {
+@Entity(name = "despesas")
+public class Despesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

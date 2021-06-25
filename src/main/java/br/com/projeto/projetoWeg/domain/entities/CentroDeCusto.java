@@ -14,9 +14,9 @@ public class CentroDeCusto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "responsavel_id")
-    private Long responsavel_id;
+    private Funcionario responsavel;
 
     private String nome;
 

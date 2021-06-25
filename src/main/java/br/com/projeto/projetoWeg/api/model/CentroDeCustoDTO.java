@@ -3,13 +3,13 @@ package br.com.projeto.projetoWeg.api.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
 
-@Setter
 @Getter
-public class DespesasModel {
+@Setter
+public class CentroDeCustoDTO {
 
     private String nome;
-    private int esforco;
-    private BigDecimal valor;
+    private FuncionarioDTO responsavel;
+
 }

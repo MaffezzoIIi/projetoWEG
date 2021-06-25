@@ -9,12 +9,16 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity(name = "cc_pagantes")
-public class CcPagantes {
+public class CcPagante {
 
-    @OneToMany
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
     @JoinColumn(name = "centro_de_custo_id")
     private CentroDeCusto centroDeCusto;
-    
+
     private double percentual;
     private BigDecimal valor;
 

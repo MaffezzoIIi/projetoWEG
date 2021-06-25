@@ -24,11 +24,11 @@ public class Projeto {
 
     @ManyToOne
     @JoinColumn(name = "solicitante_id")
-    private long solicitante_id;
+    private Funcionario solicitante;
 
     @ManyToOne
     @JoinColumn(name = "responsavel_id")
-    private long responsavel_id;
+    private Funcionario responsavel;
 
     private String data_de_inicio;
     private String data_de_termino;
