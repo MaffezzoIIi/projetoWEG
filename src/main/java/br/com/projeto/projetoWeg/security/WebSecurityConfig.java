@@ -23,7 +23,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
             "/funcionarios",
             "/cargos",
             "/projetos",
-            "/centros_de_custos"
+            "/centros_de_custos",
+            "/ccpagantes",
+            "/despesas",
+            "/projeto_cc"
     };
 
     private static final String[] AUTH_LIST_GERENTE = {

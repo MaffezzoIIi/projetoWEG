@@ -1,5 +1,6 @@
 package br.com.projeto.projetoWeg.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ public class Funcionario {
     private String nome;
     private String cpf;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;

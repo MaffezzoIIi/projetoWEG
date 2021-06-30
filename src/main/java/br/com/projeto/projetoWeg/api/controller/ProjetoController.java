@@ -3,84 +3,105 @@ package br.com.projeto.projetoWeg.api.controller;
 import br.com.projeto.projetoWeg.api.assembler.CcPagantesAssembler;
 import br.com.projeto.projetoWeg.api.assembler.DespesasAssembler;
 import br.com.projeto.projetoWeg.api.assembler.ProjetoAssembler;
-import br.com.projeto.projetoWeg.api.model.ProjetoDTO;
+import br.com.projeto.projetoWeg.api.model.InfoProjetosDTO;
 import br.com.projeto.projetoWeg.api.model.input.CcPagantesInputDTO;
 import br.com.projeto.projetoWeg.api.model.input.DespesasInputDTO;
-import br.com.projeto.projetoWeg.api.model.input.ProjetosInputDTO;
+import br.com.projeto.projetoWeg.api.model.input.InfoProjetosInputDTO;
+import br.com.projeto.projetoWeg.api.model.input.ProjetoInputDTO;
 import br.com.projeto.projetoWeg.domain.entities.*;
+import br.com.projeto.projetoWeg.domain.exception.EntityNotFoundException;
 import br.com.projeto.projetoWeg.domain.repository.CentrosDeCustoRepositories;
 import br.com.projeto.projetoWeg.domain.repository.FuncionarioRepositories;
-import br.com.projeto.projetoWeg.domain.service.CcPagantesService;
-import br.com.projeto.projetoWeg.domain.service.DespesasService;
-import br.com.projeto.projetoWeg.domain.service.ProjetoService;
+import br.com.projeto.projetoWeg.domain.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/projetos")
 public class ProjetoController {
 
-    private ProjetoService projetoService;
-    private CcPagantesService ccPagantesService;
-    private DespesasService despesasService;
+    private final ProjetoAssembler projetoAssembler;
+    private final CcPagantesAssembler ccPagantesAssembler;
+    private final DespesasAssembler despesasAssembler;
 
-    private ProjetoAssembler projetoAssembler;
-    private CcPagantesAssembler ccPagantesAssembler;
-    private DespesasAssembler despesasAssembler;
+    private final ProjetoService projetoService;
+    private final DespesasService despesasService;
+    private final CcPagantesService ccPagantesService;
+    private final ProjetoCcPagantesService projetoCcPagantesService;
+    private final ProjetoDespesasService projetoDespesasService;
 
-    private FuncionarioRepositories funcionarioRepositories;
-    private CentrosDeCustoRepositories centrosDeCustoRepositories;
+    private final FuncionarioRepositories funcionarioRepositories;
+    private final CentrosDeCustoRepositories centrosDeCustoRepositories;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProjetoDTO cadastrar(@RequestBody ProjetosInputDTO projetosInputDTO) {
-        Projeto novoProjeto = projetoAssembler.toEntity(projetosInputDTO);
-        novoProjeto = setAtributosPadrao(novoProjeto, projetosInputDTO);
+    public InfoProjetosDTO cadastrar(@RequestBody ProjetoInputDTO projetoInputDTO) {
+        Projeto novoProjeto = projetoAssembler.toEntity(projetoInputDTO.getInfoProjetosInputDTO());
 
-        for (int i = 0; i < projetosInputDTO.getCc_pagantes().size(); i ++) {
-            cadastrarCcPagante(projetosInputDTO.getCc_pagantes().get(i));
-        }
-
-        for (int i = 0; i < projetosInputDTO.getDespesas().size(); i ++) {
-            cadastrarDespesa(projetosInputDTO.getDespesas().get(i));
-        }
+        setDefaultInfo(novoProjeto, projetoInputDTO.getInfoProjetosInputDTO());
 
         Projeto projeto = projetoService.cadastrar(novoProjeto);
+
+        cadastrarCcPagantes(projetoInputDTO.getCcPagantesInputDTO(), projeto.getId());
+
+        cadastrarDespesas(projetoInputDTO.getDespesasInputDTOS(), projeto.getId());
 
         return projetoAssembler.toModel(projeto);
     }
 
-    public void cadastrarCcPagante(CcPagantesInputDTO ccPagantesInputDTO) {
-        CcPagante cc_provisorio = new CcPagante();
-        cc_provisorio.setCentroDeCusto(centrosDeCustoRepositories.findById(ccPagantesInputDTO.getCentro_de_custo_id()));
-        cc_provisorio.setPercentual(ccPagantesInputDTO.getPercentual());
-        cc_provisorio.setValor(ccPagantesInputDTO.getValor());
-
-        ccPagantesService.cadastrar(cc_provisorio);
-    }
-
-    public void cadastrarDespesa(DespesasInputDTO despesasInputDTO) {
-        Despesa despesa = despesasAssembler.toEntity(despesasInputDTO);
-
-        despesasService.cadastrar(despesa);
-    }
-
-    public Projeto setAtributosPadrao(Projeto projeto, ProjetosInputDTO projetosInputDTO) {
+    private void setDefaultInfo(Projeto projeto, InfoProjetosInputDTO infoProjeto) {
         projeto.setData_do_cadastro(LocalDateTime.now());
         projeto.setStatus(Status.NAO_INICIADO);
         projeto.setHorasApontadas(0);
         projeto.setResponsavel(funcionarioRepositories.findByNome(
-                projetosInputDTO.getNome_responsavel()
+                infoProjeto.getNome_responsavel()
         ));
         projeto.setSolicitante(funcionarioRepositories.findByNome(
-                projetosInputDTO.getNome_solicitante()
+                infoProjeto.getNome_solicitante()
         ));
+    }
 
-        return projeto;
+    private void cadastrarCcPagantes(List<CcPagantesInputDTO> ccPagantesInputDTO, Long projetoId) {
+        for (CcPagantesInputDTO ccPagantes : ccPagantesInputDTO) {
+            CcPagante novoCcPagante = ccPagantesAssembler.toEntity(ccPagantes);
+
+            novoCcPagante.setCentroDeCusto(buscarCc(ccPagantes.getCentro_de_custo_id()));
+
+            CcPagante ccPagante = ccPagantesService.cadastrar(novoCcPagante);
+
+            ProjetoCcPagantes projetoCcPagantes = new ProjetoCcPagantes();
+
+            projetoCcPagantes.setCcpagantes_id(ccPagante.getId());
+            projetoCcPagantes.setProjeto_id(projetoId);
+
+            projetoCcPagantesService.cadastrar(projetoCcPagantes);
+        }
+    }
+
+    private CentroDeCusto buscarCc(Long cc_id) {
+        return centrosDeCustoRepositories.findById(cc_id)
+                .orElseThrow(() -> new EntityNotFoundException("Centro de Custo inválido"));
+    }
+
+    private void cadastrarDespesas(List<DespesasInputDTO> despesasInputDTOS, Long projetoId) {
+        for (DespesasInputDTO despesas : despesasInputDTOS) {
+            Despesa novaDespesa = despesasAssembler.toEntity(despesas);
+
+            Despesa despesa = despesasService.cadastrar(novaDespesa);
+
+            ProjetoDespesas projetoDespesas = new ProjetoDespesas();
+
+            projetoDespesas.setDespesas_id(despesa.getId());
+            projetoDespesas.setProjeto_id(projetoId);
+
+            projetoDespesasService.cadastrar(projetoDespesas);
+        }
     }
 
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -42,5 +43,15 @@ public class Projeto {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime data_do_cadastro;
+
+    @JoinTable(name = "projetos_ccpagantes", joinColumns = @JoinColumn(name = "projeto_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "ccpagantes_id", referencedColumnName = "id"))
+    @ManyToMany
+    private List<CcPagante> ccPagantes;
+
+    @JoinTable(name = "projetos_despesas", joinColumns = @JoinColumn(name = "projeto_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "despesas_id", referencedColumnName = "id"))
+    @ManyToMany
+    private List<Despesa> despesas;
 
 }

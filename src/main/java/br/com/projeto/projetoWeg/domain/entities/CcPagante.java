@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +22,8 @@ public class CcPagante {
 
     private double percentual;
     private BigDecimal valor;
+
+    @ManyToMany
+    private List<Projeto> projetos;
 
 }

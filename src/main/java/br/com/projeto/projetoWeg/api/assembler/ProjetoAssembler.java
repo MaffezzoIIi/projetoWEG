@@ -1,10 +1,9 @@
 package br.com.projeto.projetoWeg.api.assembler;
 
-import br.com.projeto.projetoWeg.api.model.FuncionarioDTO;
+import br.com.projeto.projetoWeg.api.model.InfoProjetosDTO;
 import br.com.projeto.projetoWeg.api.model.ProjetoDTO;
-import br.com.projeto.projetoWeg.api.model.input.FuncionarioInputDTO;
-import br.com.projeto.projetoWeg.api.model.input.ProjetosInputDTO;
-import br.com.projeto.projetoWeg.domain.entities.Funcionario;
+import br.com.projeto.projetoWeg.api.model.input.InfoProjetosInputDTO;
+import br.com.projeto.projetoWeg.api.model.input.ProjetoInputDTO;
 import br.com.projeto.projetoWeg.domain.entities.Projeto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,15 +18,15 @@ public class ProjetoAssembler {
 
     private ModelMapper modelMapper;
 
-    public ProjetoDTO toModel(Projeto projeto){
-        return modelMapper.map(projeto, ProjetoDTO.class);
+    public InfoProjetosDTO toModel(Projeto projeto){
+        return modelMapper.map(projeto, InfoProjetosDTO.class);
     }
 
-    public Projeto toEntity(ProjetosInputDTO projetosInputDTO){
-        return modelMapper.map(projetosInputDTO, Projeto.class);
+    public Projeto toEntity(InfoProjetosInputDTO infoProjetosInputDTO){
+        return modelMapper.map(infoProjetosInputDTO, Projeto.class);
     }
 
-    public List<ProjetoDTO> toCollectionModel(List<Projeto> projetos){
+    public List<InfoProjetosDTO> toCollectionModel(List<Projeto> projetos){
         return projetos.stream().map(this::toModel).collect(Collectors.toList());
 
     }
