@@ -17,7 +17,4 @@ public class UsuarioInputDTO {
     @NotBlank
     private String senha;
 
-    @NotBlank
-    private String cargo;
-
 }

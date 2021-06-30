@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.List;
 
 
 @Setter
@@ -26,49 +27,43 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
 
-    @ManyToOne
-    @JoinColumn(name = "cargo_id")
-    private Cargo cargos;
+    @ManyToMany
+    @JoinTable(name = "cargos_usuarios", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "cargo_id", referencedColumnName = "id"))
+    private List<Cargo> cargos;
 
-    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return (Collection<? extends GrantedAuthority>) this.cargos;
     }
 
-    @JsonIgnore
     @Override
     public String getPassword() {
-        return null;
+        return this.senha;
     }
 
-    @JsonIgnore
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
-    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

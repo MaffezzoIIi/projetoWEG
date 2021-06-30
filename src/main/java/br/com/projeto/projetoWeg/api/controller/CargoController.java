@@ -25,7 +25,7 @@ public class CargoController {
     @ResponseStatus(HttpStatus.CREATED)
     public CargoDTO cadastrar(@RequestBody CargoInputDTO cargoInputDTO){
         Cargo novoCargo = cargoAssembler.toEntity(cargoInputDTO);
-        novoCargo.setNome(novoCargo.getNome().toUpperCase(Locale.ROOT));
+        novoCargo.setNome("ROLE_" + novoCargo.getNome().toUpperCase(Locale.ROOT));
         Cargo cargo = cargoService.cadastrar(novoCargo);
 
         return cargoAssembler.toModel(cargo);

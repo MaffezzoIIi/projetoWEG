@@ -29,7 +29,6 @@ public class FuncionarioController {
 
     private CargoRepositories cargoRepositories;
 
-
     private FuncionarioAssembler funcionarioAssembler;
     private UsuarioAssembler usuarioAssembler;
 
@@ -39,9 +38,6 @@ public class FuncionarioController {
         Funcionario novoFuncionario = funcionarioAssembler.toEntity(funcionarioInputDTO);
 
         Usuario novoUsuario = usuarioAssembler.toEntity(funcionarioInputDTO.getUsuario());
-
-        Cargo cargo = cargoRepositories.findByNome("FUNCIONARIO");
-        novoUsuario.setCargos(cargo);
 
         Usuario usuario = usuarioService.cadastrar(novoUsuario);
         novoFuncionario.setUsuario(usuario);

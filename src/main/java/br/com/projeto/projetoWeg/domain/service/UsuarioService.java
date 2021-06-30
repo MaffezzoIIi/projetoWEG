@@ -1,5 +1,6 @@
 package br.com.projeto.projetoWeg.domain.service;
 
+import br.com.projeto.projetoWeg.domain.entities.CargosUsuarios;
 import br.com.projeto.projetoWeg.domain.entities.Usuario;
 import br.com.projeto.projetoWeg.domain.repository.UsuarioRepositories;
 import lombok.AllArgsConstructor;
@@ -14,11 +15,20 @@ import java.util.Locale;
 public class UsuarioService {
 
     private UsuarioRepositories usuarioRepositories;
+    private CargoUsuarioService cargoUsuarioService;
 
     @Transactional
     public Usuario cadastrar(Usuario usuario){
         usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
-        usuario.getCargos().setNome(usuario.getCargos().getNome().toUpperCase(Locale.ROOT));
-        return usuarioRepositories.save(usuario);
+
+        usuarioRepositories.save(usuario);
+
+        CargosUsuarios cargosUsuarios = new CargosUsuarios();
+        cargosUsuarios.setUsuario_id(usuario.getId());
+        cargosUsuarios.setCargo_id(2L);
+
+        cargoUsuarioService.cadastrar(cargosUsuarios);
+
+        return usuario;
     }
 }
