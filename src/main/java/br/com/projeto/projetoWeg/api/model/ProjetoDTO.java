@@ -10,7 +10,7 @@ import java.util.List;
 public class ProjetoDTO {
 
     private InfoProjetosDTO infoprojetoDTO;
-    private List<CcPagantesDTO> ccPagantesDTOS;
-    private List<DespesasDTO> despesasDTOS;
+    private List<CcPagantesDTO> ccPagantes;
+    private List<DespesasDTO> despesas;
 
 }

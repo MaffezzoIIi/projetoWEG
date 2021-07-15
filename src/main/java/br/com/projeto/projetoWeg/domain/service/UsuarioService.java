@@ -25,7 +25,7 @@ public class UsuarioService {
 
         CargosUsuarios cargosUsuarios = new CargosUsuarios();
         cargosUsuarios.setUsuario_id(usuario.getId());
-        cargosUsuarios.setCargo_id(2L);
+        cargosUsuarios.setCargo_id(4L);
 
         cargoUsuarioService.cadastrar(cargosUsuarios);
 

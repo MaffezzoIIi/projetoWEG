@@ -26,7 +26,6 @@ public class FuncionarioAssembler {
 
     public List<FuncionarioDTO> toCollectionModel(List<Funcionario> funcionarios){
         return funcionarios.stream().map(this::toModel).collect(Collectors.toList());
-
     }
 
 }

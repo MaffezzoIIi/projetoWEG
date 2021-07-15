@@ -1,23 +1,20 @@
 package br.com.projeto.projetoWeg.api.controller;
 
-import br.com.projeto.projetoWeg.api.assembler.CargoAssembler;
 import br.com.projeto.projetoWeg.api.assembler.FuncionarioAssembler;
 import br.com.projeto.projetoWeg.api.assembler.UsuarioAssembler;
 import br.com.projeto.projetoWeg.api.model.FuncionarioDTO;
 import br.com.projeto.projetoWeg.api.model.input.FuncionarioInputDTO;
-import br.com.projeto.projetoWeg.domain.entities.Cargo;
 import br.com.projeto.projetoWeg.domain.entities.Funcionario;
 import br.com.projeto.projetoWeg.domain.entities.Usuario;
-import br.com.projeto.projetoWeg.domain.repository.CargoRepositories;
 import br.com.projeto.projetoWeg.domain.service.FuncionarioService;
 import br.com.projeto.projetoWeg.domain.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 @AllArgsConstructor
 @RestController
@@ -26,8 +23,6 @@ public class FuncionarioController {
 
     private FuncionarioService funcionarioService;
     private UsuarioService usuarioService;
-
-    private CargoRepositories cargoRepositories;
 
     private FuncionarioAssembler funcionarioAssembler;
     private UsuarioAssembler usuarioAssembler;
@@ -51,5 +46,14 @@ public class FuncionarioController {
         return funcionarioService.listar();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FuncionarioDTO> buscar(@PathVariable long id) {
+        return funcionarioService.buscar(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<FuncionarioDTO> remover(@PathVariable long id) {
+        return funcionarioService.remover(id);
+    }
 
 }

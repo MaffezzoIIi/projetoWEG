@@ -28,7 +28,6 @@ public class ProjetoAssembler {
 
     public List<InfoProjetosDTO> toCollectionModel(List<Projeto> projetos){
         return projetos.stream().map(this::toModel).collect(Collectors.toList());
-
     }
 
 }

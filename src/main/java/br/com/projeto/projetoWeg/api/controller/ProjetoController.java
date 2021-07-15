@@ -4,6 +4,7 @@ import br.com.projeto.projetoWeg.api.assembler.CcPagantesAssembler;
 import br.com.projeto.projetoWeg.api.assembler.DespesasAssembler;
 import br.com.projeto.projetoWeg.api.assembler.ProjetoAssembler;
 import br.com.projeto.projetoWeg.api.model.InfoProjetosDTO;
+import br.com.projeto.projetoWeg.api.model.ProjetoDTO;
 import br.com.projeto.projetoWeg.api.model.input.CcPagantesInputDTO;
 import br.com.projeto.projetoWeg.api.model.input.DespesasInputDTO;
 import br.com.projeto.projetoWeg.api.model.input.InfoProjetosInputDTO;
@@ -15,9 +16,11 @@ import br.com.projeto.projetoWeg.domain.repository.FuncionarioRepositories;
 import br.com.projeto.projetoWeg.domain.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -102,6 +105,64 @@ public class ProjetoController {
 
             projetoDespesasService.cadastrar(projetoDespesas);
         }
+    }
+
+    @GetMapping
+    public List<ProjetoDTO> listar(){
+        List<ProjetoDTO> projetoDTOList = new ArrayList<>();
+        List<Long> ids  = new ArrayList<>();
+
+        for (int i = 0; i < projetoService.listar().size(); i++) {
+            ids.add(projetoService.listar().get(i).getId());
+        }
+
+        for (Long id : ids) {
+
+            ProjetoDTO projetoDTO = new ProjetoDTO();
+
+            projetoDTO.setInfoprojetoDTO(
+                    projetoAssembler.toModel(projetoService.buscar(id))
+            );
+
+            projetoDTO.setDespesas(
+                    despesasAssembler.toCollectionModel(
+                            projetoDespesasService.listarProjetoDespesas(id)
+                    )
+            );
+
+            projetoDTO.setCcPagantes(
+                    ccPagantesAssembler.toCollectionModel(
+                            projetoCcPagantesService.listarProjetoCcPagantes(id)
+                    )
+            );
+
+            projetoDTOList.add(projetoDTO);
+
+        }
+
+        return projetoDTOList;
+    }
+
+    public ResponseEntity<ProjetoDTO> buscar(@PathVariable long id) {
+        ProjetoDTO projetoDTO = new ProjetoDTO();
+
+        projetoDTO.setInfoprojetoDTO(
+                projetoAssembler.toModel(projetoService.buscar(id))
+        );
+
+        projetoDTO.setDespesas(
+                despesasAssembler.toCollectionModel(
+                        projetoDespesasService.listarProjetoDespesas(id)
+                )
+        );
+
+        projetoDTO.setCcPagantes(
+                ccPagantesAssembler.toCollectionModel(
+                        projetoCcPagantesService.listarProjetoCcPagantes(id)
+                )
+        );
+
+        return ResponseEntity.ok(projetoDTO);
     }
 
 }

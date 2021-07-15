@@ -7,6 +7,7 @@ import br.com.projeto.projetoWeg.domain.entities.Cargo;
 import br.com.projeto.projetoWeg.domain.service.CargoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,6 +35,16 @@ public class CargoController {
     @GetMapping
     public List<CargoDTO> listar() {
         return cargoService.listar();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CargoDTO> buscar(@PathVariable long id) {
+        return cargoService.buscar(id);
+    }
+
+    @DeleteMapping("/{cargoId}")
+    public ResponseEntity<CargoDTO> removerPorId(@PathVariable long cargoId) {
+        return cargoService.removerPorId(cargoId);
     }
 
 }

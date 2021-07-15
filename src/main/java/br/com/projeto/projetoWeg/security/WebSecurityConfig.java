@@ -26,8 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     private static final String[] AUTH_LIST_FUNC = {
             "/",
             "/funcionarios",
+            "/funcionarios/*",
             "/projetos",
-            "/centros_de_custos"
+            "/centros_de_custos",
+            "/centros_de_custos/*"
     };
 
     private static final String[] AUTH_LIST_GERENTE = {

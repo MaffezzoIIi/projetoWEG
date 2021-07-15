@@ -4,6 +4,9 @@ import br.com.projeto.projetoWeg.domain.entities.Despesa;
 import br.com.projeto.projetoWeg.domain.repository.DespesasRepositories;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import sun.security.krb5.internal.crypto.Des;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -15,4 +18,7 @@ public class DespesasService {
         return despesasRepositories.save(despesas);
     }
 
+    public List<Despesa> listar() { return  despesasRepositories.findAll(); }
+
+    public Despesa buscar(Long id) { return  despesasRepositories.findById(id).get(); }
 }

@@ -29,7 +29,4 @@ public class DespesasAssembler {
         return despesas.stream().map(this::toModel).collect(Collectors.toList());
     }
 
-    public List<Despesa> toCollectionEntity(List<DespesasInputDTO> despesasInputDTOS){
-        return despesasInputDTOS.stream().map(this::toEntity).collect(Collectors.toList());
-    }
 }

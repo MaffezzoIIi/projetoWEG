@@ -28,9 +28,4 @@ public class CcPagantesAssembler {
         return ccPagantes.stream().map(this::toModel).collect(Collectors.toList());
     }
 
-    public List<CcPagante> toCollectionEntity(List<CcPagantesInputDTO> ccPagantesInputDTOS){
-        return  ccPagantesInputDTOS.stream().map(this::toEntity).collect(Collectors.toList());
-    }
-
-
 }
