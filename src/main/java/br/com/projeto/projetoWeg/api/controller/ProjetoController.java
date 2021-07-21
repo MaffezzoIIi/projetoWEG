@@ -13,6 +13,7 @@ import br.com.projeto.projetoWeg.domain.entities.*;
 import br.com.projeto.projetoWeg.domain.exception.EntityNotFoundException;
 import br.com.projeto.projetoWeg.domain.repository.CentrosDeCustoRepositories;
 import br.com.projeto.projetoWeg.domain.repository.FuncionarioRepositories;
+import br.com.projeto.projetoWeg.domain.repository.ProjetoRepositories;
 import br.com.projeto.projetoWeg.domain.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,7 @@ public class ProjetoController {
 
     private final FuncionarioRepositories funcionarioRepositories;
     private final CentrosDeCustoRepositories centrosDeCustoRepositories;
+    private final ProjetoRepositories projetoRepositories;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -108,61 +110,26 @@ public class ProjetoController {
     }
 
     @GetMapping
-    public List<ProjetoDTO> listar(){
-        List<ProjetoDTO> projetoDTOList = new ArrayList<>();
-        List<Long> ids  = new ArrayList<>();
-
-        for (int i = 0; i < projetoService.listar().size(); i++) {
-            ids.add(projetoService.listar().get(i).getId());
-        }
-
-        for (Long id : ids) {
-
-            ProjetoDTO projetoDTO = new ProjetoDTO();
-
-            projetoDTO.setInfoprojetoDTO(
-                    projetoAssembler.toModel(projetoService.buscar(id))
-            );
-
-            projetoDTO.setDespesas(
-                    despesasAssembler.toCollectionModel(
-                            projetoDespesasService.listarProjetoDespesas(id)
-                    )
-            );
-
-            projetoDTO.setCcPagantes(
-                    ccPagantesAssembler.toCollectionModel(
-                            projetoCcPagantesService.listarProjetoCcPagantes(id)
-                    )
-            );
-
-            projetoDTOList.add(projetoDTO);
-
-        }
-
-        return projetoDTOList;
+    public ResponseEntity<List<ProjetoDTO>> listar() throws Exception {
+        return projetoService.listar();
     }
 
+    @GetMapping("/{id}")
     public ResponseEntity<ProjetoDTO> buscar(@PathVariable long id) {
-        ProjetoDTO projetoDTO = new ProjetoDTO();
+        return projetoService.buscar(id);
+    }
 
-        projetoDTO.setInfoprojetoDTO(
-                projetoAssembler.toModel(projetoService.buscar(id))
-        );
+    @DeleteMapping("/{id}")
+    public ResponseEntity<InfoProjetosDTO> remover(@PathVariable long id) {
+        if (!projetoRepositories.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
 
-        projetoDTO.setDespesas(
-                despesasAssembler.toCollectionModel(
-                        projetoDespesasService.listarProjetoDespesas(id)
-                )
-        );
+        projetoDespesasService.remover(id);
+        projetoCcPagantesService.remover(id);
+        projetoService.remover(id);
 
-        projetoDTO.setCcPagantes(
-                ccPagantesAssembler.toCollectionModel(
-                        projetoCcPagantesService.listarProjetoCcPagantes(id)
-                )
-        );
-
-        return ResponseEntity.ok(projetoDTO);
+        return ResponseEntity.noContent().build();
     }
 
 }

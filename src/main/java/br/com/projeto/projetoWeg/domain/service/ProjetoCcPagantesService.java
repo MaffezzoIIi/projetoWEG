@@ -25,15 +25,23 @@ public class ProjetoCcPagantesService {
         return projetoCcPagantesRepositories.save(projetoCcPagantes);
     }
 
-    public List<CcPagante> listarProjetoCcPagantes(@PathVariable Long id){
-        List<Long> ids = projetoCcPagantesRepositories.findByProjetoId(id);
+    public List<CcPagante> listarProjetoCcPagantes(Long projetoId){
+        List<Long> ids = projetoCcPagantesRepositories.findByProjetoId(projetoId);
 
         List<CcPagante> ccPagantes = new ArrayList<>();
 
-        for (int i = 0; i < ids.size() ; i++) {
-            ccPagantes.add(ccPagantesService.buscar(ids.get(i)));
+        for (Long id : ids) {
+            ccPagantes.add(ccPagantesService.buscar(id).getBody());
         }
 
         return ccPagantes;
+    }
+
+    public void remover(long id) {
+        List<Long> ids = projetoCcPagantesRepositories.findByProjetoId(id);
+
+        for (Long aLong : ids) {
+            projetoCcPagantesRepositories.deleteById(aLong);
+        }
     }
 }

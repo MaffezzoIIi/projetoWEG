@@ -20,14 +20,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
 
-    private ImplementsUserDetailsService implementsUserDetailsService;
-    private JWTRequestFilter jwtRequestFilter;
+    private final ImplementsUserDetailsService implementsUserDetailsService;
+    private final JWTRequestFilter jwtRequestFilter;
 
     private static final String[] AUTH_LIST_FUNC = {
             "/",
             "/funcionarios",
             "/funcionarios/*",
             "/projetos",
+            "/projetos/*",
             "/centros_de_custos",
             "/centros_de_custos/*"
     };

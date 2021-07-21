@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ImplementsUserDetailsService implements UserDetailsService {
 
-    private UsuarioRepositories usuarioRepositories;
+    private final UsuarioRepositories usuarioRepositories;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositories.findByEmail(email);
+        Usuario usuario = usuarioRepositories.findByEmail(email).get();
 
         if (usuario == null){
             throw new ExceptionTratement("User or Password invalid");

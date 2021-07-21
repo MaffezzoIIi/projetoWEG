@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CargoUsuarioService {
 
-    private CargoUsuarioRepositories cargoUsuarioRepositories;
+    private final CargoUsuarioRepositories cargoUsuarioRepositories;
 
     public CargosUsuarios cadastrar(CargosUsuarios cargosUsuarios) {
         return cargoUsuarioRepositories.save(cargosUsuarios);

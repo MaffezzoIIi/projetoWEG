@@ -25,6 +25,8 @@ public class Usuario implements UserDetails {
     private Long id;
 
     private String email;
+
+    @JsonIgnore
     private String senha;
 
     @ManyToMany

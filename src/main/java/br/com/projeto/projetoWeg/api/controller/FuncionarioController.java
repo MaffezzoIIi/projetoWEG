@@ -21,11 +21,11 @@ import java.util.List;
 @RequestMapping("/funcionarios")
 public class FuncionarioController {
 
-    private FuncionarioService funcionarioService;
-    private UsuarioService usuarioService;
+    private final FuncionarioService funcionarioService;
+    private final UsuarioService usuarioService;
 
-    private FuncionarioAssembler funcionarioAssembler;
-    private UsuarioAssembler usuarioAssembler;
+    private final FuncionarioAssembler funcionarioAssembler;
+    private final UsuarioAssembler usuarioAssembler;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,7 +42,7 @@ public class FuncionarioController {
     }
 
     @GetMapping
-    public List<FuncionarioDTO> listar() {
+    public ResponseEntity<List<FuncionarioDTO>> listar() {
         return funcionarioService.listar();
     }
 

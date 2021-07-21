@@ -17,29 +17,33 @@ import java.util.List;
 @Service
 public class ProjetoDespesasService {
 
-    private ProjetoDespesaRepositories projetoDespesaRepositories;
+    private final ProjetoDespesaRepositories projetoDespesaRepositories;
 
-    private DespesasAssembler despesasAssembler;
-    private DespesasService despesasService;
+    private final DespesasService despesasService;
 
     @Transactional
     public ProjetoDespesas cadastrar(ProjetoDespesas projetoDespesas) {
         return projetoDespesaRepositories.save(projetoDespesas);
     }
 
-    public List<Long> listarPorId(Long id){
-        return projetoDespesaRepositories.findByProjetoId(id);
-    }
-
-    public List<Despesa> listarProjetoDespesas(@PathVariable Long id){
-        List<Long> ids = projetoDespesaRepositories.findByProjetoId(id);
+    public List<Despesa> listarProjetoDespesas(Long projetoId){
+        List<Long> ids = projetoDespesaRepositories.findByProjetoId(projetoId);
 
         List<Despesa> despesas = new ArrayList<>();
 
-        for (int i = 0; i < ids.size() ; i++) {
-            despesas.add(despesasService.buscar(ids.get(i)));
+        for (Long id : ids) {
+            despesas.add(despesasService.buscar(id).getBody());
         }
 
         return despesas;
     }
+
+    public void remover(long id) {
+        List<Long> ids = projetoDespesaRepositories.findByProjetoId(id);
+
+        for (Long aLong : ids) {
+            projetoDespesaRepositories.deleteById(aLong);
+        }
+    }
+
 }

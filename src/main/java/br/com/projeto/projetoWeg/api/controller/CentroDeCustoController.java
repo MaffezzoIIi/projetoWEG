@@ -18,11 +18,11 @@ import java.util.List;
 @RequestMapping("/centros_de_custos")
 public class CentroDeCustoController {
 
-    private CentroDeCustoService centroDeCustoService;
+    private final CentroDeCustoService centroDeCustoService;
 
-    private CentroDeCustoAssembler centroDeCustoAssembler;
+    private final CentroDeCustoAssembler centroDeCustoAssembler;
 
-    private FuncionarioRepositories funcionarioRepositories;
+    private final FuncionarioRepositories funcionarioRepositories;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,8 +36,8 @@ public class CentroDeCustoController {
     }
 
     @GetMapping
-    public List<CentroDeCustoDTO> listar() {
-        return centroDeCustoAssembler.toCollectionModel(centroDeCustoService.listar());
+    public ResponseEntity<List<CentroDeCustoDTO>> listar() {
+        return centroDeCustoService.listar();
     }
 
     @GetMapping("/{id}")

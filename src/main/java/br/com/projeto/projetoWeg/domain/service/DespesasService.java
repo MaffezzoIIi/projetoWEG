@@ -3,6 +3,7 @@ package br.com.projeto.projetoWeg.domain.service;
 import br.com.projeto.projetoWeg.domain.entities.Despesa;
 import br.com.projeto.projetoWeg.domain.repository.DespesasRepositories;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import sun.security.krb5.internal.crypto.Des;
 
@@ -20,5 +21,9 @@ public class DespesasService {
 
     public List<Despesa> listar() { return  despesasRepositories.findAll(); }
 
-    public Despesa buscar(Long id) { return  despesasRepositories.findById(id).get(); }
+    public ResponseEntity<Despesa> buscar(Long id) {
+        return  despesasRepositories.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

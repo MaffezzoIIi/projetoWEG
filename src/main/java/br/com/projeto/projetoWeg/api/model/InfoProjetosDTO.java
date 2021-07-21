@@ -11,7 +11,7 @@ public class InfoProjetosDTO {
 
     private long id;
 
-    private long numero_do_projeto;
+    private long numeroDoProjeto;
     private String titulo;
     private String descricao;
 

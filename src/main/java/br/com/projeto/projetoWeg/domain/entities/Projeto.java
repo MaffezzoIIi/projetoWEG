@@ -19,7 +19,7 @@ public class Projeto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long numero_do_projeto;
+    private long numeroDoProjeto;
     private String titulo;
     private String descricao;
 

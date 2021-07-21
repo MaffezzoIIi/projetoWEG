@@ -4,6 +4,7 @@ import br.com.projeto.projetoWeg.api.assembler.CargoAssembler;
 import br.com.projeto.projetoWeg.api.model.CargoDTO;
 import br.com.projeto.projetoWeg.api.model.input.CargoInputDTO;
 import br.com.projeto.projetoWeg.domain.entities.Cargo;
+import br.com.projeto.projetoWeg.domain.repository.CargoRepositories;
 import br.com.projeto.projetoWeg.domain.service.CargoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ import java.util.Locale;
 @RequestMapping("/cargos")
 public class CargoController {
 
-    private CargoAssembler cargoAssembler;
-    private CargoService cargoService;
+    private final CargoAssembler cargoAssembler;
+    private final CargoService cargoService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,7 +34,7 @@ public class CargoController {
     }
 
     @GetMapping
-    public List<CargoDTO> listar() {
+    public ResponseEntity<List<CargoDTO>> listar() {
         return cargoService.listar();
     }
 

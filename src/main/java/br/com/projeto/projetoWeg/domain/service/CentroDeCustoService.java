@@ -4,6 +4,7 @@ import br.com.projeto.projetoWeg.api.assembler.CentroDeCustoAssembler;
 import br.com.projeto.projetoWeg.api.model.CentroDeCustoDTO;
 import br.com.projeto.projetoWeg.domain.entities.CentroDeCusto;
 import br.com.projeto.projetoWeg.domain.exception.EntityNotFoundException;
+import br.com.projeto.projetoWeg.domain.exception.ExceptionTratement;
 import br.com.projeto.projetoWeg.domain.repository.CentrosDeCustoRepositories;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,23 @@ public class CentroDeCustoService {
 
     @Transactional
     public CentroDeCusto cadastrar(CentroDeCusto centroDeCusto) {
+        boolean ccValidation = centrosDeCustoRepositories.findByNome(centroDeCusto.getNome()).isPresent();
+
+        if (ccValidation) {
+            throw new ExceptionTratement("Centro de Custo já cadastrado");
+        }
+
         return centrosDeCustoRepositories.save(centroDeCusto);
     }
 
-    public List<CentroDeCusto> listar() {
-        return centrosDeCustoRepositories.findAll();
+    public ResponseEntity<List<CentroDeCustoDTO>> listar() {
+        if (centrosDeCustoRepositories.count() <= 0) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(centroDeCustoAssembler.toCollectionModel(
+                centrosDeCustoRepositories.findAll())
+        );
     }
 
     public ResponseEntity<CentroDeCustoDTO> buscar(long id) {

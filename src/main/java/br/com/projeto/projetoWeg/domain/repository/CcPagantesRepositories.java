@@ -8,7 +8,4 @@ import java.util.List;
 
 @Repository
 public interface CcPagantesRepositories extends JpaRepository<CcPagante, Long> {
-
-    List<CcPagante> findByCentroDeCustoId(Long centro_de_custo_id);
-
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public class InfoProjetosInputDTO {
 
         @NotNull
-        private long numero_do_projeto;
+        private long numeroDoProjeto;
 
         @NotBlank
         private String titulo;

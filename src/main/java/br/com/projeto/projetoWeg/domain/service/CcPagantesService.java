@@ -4,6 +4,7 @@ import br.com.projeto.projetoWeg.domain.entities.CcPagante;
 import br.com.projeto.projetoWeg.domain.exception.EntityNotFoundException;
 import br.com.projeto.projetoWeg.domain.repository.CcPagantesRepositories;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @Service
 public class CcPagantesService {
 
-    private CcPagantesRepositories ccPagantesRepositories;
+    private final CcPagantesRepositories ccPagantesRepositories;
 
     public CcPagante cadastrar(CcPagante ccPagantes) {
         return ccPagantesRepositories.save(ccPagantes);
@@ -20,8 +21,10 @@ public class CcPagantesService {
 
     public List<CcPagante> listar() { return ccPagantesRepositories.findAll(); }
 
-    public CcPagante buscar(long id) {
-        return ccPagantesRepositories.findById(id).get();
+    public ResponseEntity<CcPagante> buscar(long id) {
+        return ccPagantesRepositories.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
